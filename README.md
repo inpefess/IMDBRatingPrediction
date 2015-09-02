@@ -8,4 +8,8 @@ Data storage: SQLite 3.8
 
 Data transformation: SQL
 
-Model built using Python
+Modelling framework: scikit-learn (Python 3.4)
+
+Algorithms: ElasticNet
+
+Result: MSE 1.2
