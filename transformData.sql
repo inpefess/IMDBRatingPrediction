@@ -45,7 +45,7 @@ group by m.movie_id, r.role
 ;
 
 delete from train_data;
-delete from train_data (movie_id, rating, actor, producer, writer, cinematographer, composer,
+insert into train_data (movie_id, rating, actor, producer, writer, cinematographer, composer,
     costume_director, director, editor, misc, production_designer)
 select movie_id, rating,
 coalesce(sum(case when role = 1 then rating_part else 0 end), 0) actor,

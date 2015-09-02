@@ -1,2 +1,2 @@
 #!/bin/bash
-sqlite3 imdb.sqlite < createTables.sql
+sqlite3 < createTables.sql

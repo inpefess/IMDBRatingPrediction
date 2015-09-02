@@ -1,5 +1,5 @@
-attach "imdb_raw.db" as raw;
-attach "imdb.db" as imdb;
+attach "imdb_raw.sqlite" as raw;
+attach "imdb.sqlite" as imdb;
 
 create table imdb.movies as
 select
@@ -74,4 +74,6 @@ create table imdb.train_data (
     misc REAL,
     production_designer REAL
 );
+
+detach imdb;
 
