@@ -8,7 +8,7 @@ from sklearn.metrics import mean_squared_error
 from sklearn.cross_validation import train_test_split
 
 # get and split the data
-homefolder = '.'
+homefolder = '../data'
 c = apsw.Connection(homefolder + '/imdb.sqlite').cursor()
 all_data = c.execute('SELECT movie_id, rating FROM movies ORDER BY movie_id').fetchall()
 train_data, test_data = train_test_split(all_data, train_size = 0.8, random_state = 17273)

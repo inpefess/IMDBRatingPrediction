@@ -1,20 +1,16 @@
 import xgboost as xgb
 import numpy as np
-from sklearn.cross_validation import KFold, train_test_split
-from sklearn.metrics import confusion_matrix, mean_squared_error
 from sklearn.grid_search import GridSearchCV
 from CustomSQLFeatureExtractor import *
 import numpy as np
 import apsw
-import datetime
 from sklearn.pipeline import Pipeline
-from sklearn.linear_model import ElasticNetCV
 from sklearn.metrics import mean_squared_error, make_scorer
 from sklearn.cross_validation import train_test_split
 
 # get and split the data
 rng = np.random.RandomState(31337)
-homefolder = '.'
+homefolder = '../data'
 dbfile = homefolder + '/imdb.sqlite'
 c = apsw.Connection(dbfile).cursor()
 all_data = c.execute('SELECT movie_id, rating FROM movies ORDER BY movie_id').fetchall()
@@ -28,13 +24,14 @@ X_test, y_test = test_data[:, 0], test_data[:, 1]
 featureExtractor = CustomSQLFeatureExtractor(dbfile, homefolder + '/transformData.sql', True)
 xgbRegr = xgb.XGBRegressor()
 clf = GridSearchCV(Pipeline([('FeatureExtractor', featureExtractor), ('XGBoost', xgbRegr)]),
-    {'XGBoost__max_depth': [1], 'XGBoost__n_estimators': [50, 100, 200, 400, 800]}, verbose=1,
-    scoring = make_scorer(mean_squared_error))
+    {'XGBoost__max_depth': [6, 7, 8, 9, 10], 'XGBoost__n_estimators': [800, 900, 1000]}, verbose=1,
+    scoring = make_scorer(mean_squared_error, greater_is_better = False))
 
 # fit the model
 clf.fit(X_train, y_train)
 print(clf.best_score_)
 print(clf.best_params_)
+print(clf.grid_scores_)
 
 # print results
 mse = np.var([y for (x, y) in all_data])

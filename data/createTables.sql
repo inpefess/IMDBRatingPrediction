@@ -11,7 +11,7 @@ and movie_id in (
     select movie_id
     from raw.movie_info_idx
     where info_type_id = 100
-    and cast(info as integer) >= 10000
+    and cast(info as integer) >= 1000
 )
 and movie_id in (
     select movie_id
