@@ -1,15 +1,20 @@
 import numpy as np
 import apsw
+from sklearn.base import BaseEstimator
 
-class CustomSQLFeatureExtractor:
-    def __init__(self, dbfile, queryfile, inmemory):
+class CustomSQLFeatureExtractor(BaseEstimator):
+    def __init__(self, dbfile, queryfile, inmemory, max_depth = 1, n_estimators = 50):
+        self.dbfile = dbfile
+        self.queryfile = queryfile
+        self.inmemory = inmemory
+        self.max_depth = max_depth
+        self.n_estimators = n_estimators
         diskcon = apsw.Connection(dbfile)
         if inmemory:
             self.conn = apsw.Connection(":memory:")
             self.conn.backup("main", diskcon, "main").step()
         else:
             self.conn = diskcon
-        self.queryfile = queryfile
     
     def fit(self, X, y):
         return self

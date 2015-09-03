@@ -22,3 +22,12 @@ I used 10-fold cross-validation on a training set (80% of input data). 20% of in
 
 * MSE on training set 1.5932
 * MSE on testing set: 1.7052
+
+### XGBoost
+
+Optimal model had only 50 estimators.
+
+I used 3-fold cross-validation on a training set (80% of input data). 20% of input dat formed test set for final model estimation.
+
+* MSE on training set 1.2871
+* MSE on testing set: 1.3541
