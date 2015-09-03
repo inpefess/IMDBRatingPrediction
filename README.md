@@ -12,6 +12,13 @@
 
 * Minial votes: 1000
 * Number of movies: 30459
+
+### Mean rating for all (baseline)
+
+* RMSE: 1.3447
+* Mean absolute error: 1.0475
+* Median absolute error: 0.8883
+
 * Baseline (mean rating) MSE: 1.8081
 
 ### ElasticNet
@@ -20,14 +27,16 @@ Optimal L1-ratio was found to be equal to 1 so model turn out to be a pure Lasso
 
 I used 10-fold cross-validation on a training set (80% of input data). 20% of input dat formed test set for final model estimation.
 
-* MSE on training set 1.5912
-* MSE on testing set: 1.6995
+* RMSE: 1.3036
+* Mean absolute error: 1.0259
+* Median absolute error: 0.8547
 
 ### XGBoost
 
 Optimal model had 800 estimators with maximal depth of intercation being equal to 10.
 
-I used 3-fold cross-validation on a training set (80% of input data). 20% of input dat formed test set for final model estimation.
+I used 3-fold cross-validation on a training set (60% of input data). 40% of input dat formed test set for final model estimation.
 
-* MSE on training set 0.0110
-* MSE on testing set: 0.5748
+* RMSE: 0.7232
+* Mean absolute error: 0.4695
+* Median absolute error: 0.2818
