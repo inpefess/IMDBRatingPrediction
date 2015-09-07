@@ -9,7 +9,8 @@ from sklearn.cross_validation import train_test_split
 
 # get and split the data
 homefolder = '../data'
-c = apsw.Connection(homefolder + '/imdb.sqlite').cursor()
+dbfile = homefolder + '/imdb.sqlite'
+c = apsw.Connection(dbfile).cursor()
 all_data = c.execute('SELECT movie_id, rating FROM movies ORDER BY movie_id').fetchall()
 train_data, test_data = train_test_split(all_data, train_size = 0.8, random_state = 17273)
 train_data = np.asarray(sorted(train_data))
@@ -18,8 +19,7 @@ X_train, y_train = train_data[:, 0], train_data[:, 1]
 X_test, y_test = test_data[:, 0], test_data[:, 1]
 
 # construct pipeline
-featureExtractor = CustomSQLFeatureExtractor(homefolder + '/imdb.sqlite',\
-    homefolder + '/transformData.sql', True)
+featureExtractor = CustomSQLFeatureExtractor(dbfile, homefolder + '/transformData.sql')
 elastic = ElasticNetCV(n_jobs = 1, cv = 10, l1_ratio = [.5, 1], n_alphas = 100, eps = 0.001)
 clf = Pipeline([('FeatureExtractor', featureExtractor), ('ElasticNet', elastic)])
 

@@ -21,11 +21,11 @@ X_train, y_train = train_data[:, 0], train_data[:, 1]
 X_test, y_test = test_data[:, 0], test_data[:, 1]
 
 # construct pipeline
-featureExtractor = CustomSQLFeatureExtractor(dbfile, homefolder + '/transformData.sql', True)
+featureExtractor = CustomSQLFeatureExtractor(dbfile, homefolder + '/transformData.sql')
 xgbRegr = xgb.XGBRegressor()
 clf = GridSearchCV(Pipeline([('FeatureExtractor', featureExtractor), ('XGBoost', xgbRegr)]),
-    {'XGBoost__max_depth': [10], 'XGBoost__n_estimators': [800]}, verbose=1,
-    scoring = make_scorer(mean_squared_error, greater_is_better = False))
+    {'XGBoost__max_depth': [10], 'XGBoost__n_estimators': [800]}, verbose=1, n_jobs = -1,
+    scoring = make_scorer(mean_squared_error, greater_is_better = False), cv = 3)
 
 # fit the model
 clf.fit(X_train, y_train)
