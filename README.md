@@ -38,3 +38,12 @@ I used 3-fold cross-validation on a training set (60% of input data). 40% of inp
 * RMSE: 0.7232
 * Mean absolute error: 0.4695
 * Median absolute error: 0.2818
+
+### SVR
+
+Optimal Support Vector Machine Regressor has a RBF kernel (linear kernel prooved extremely ineffective for this problem) and parameters C = 4, epsilon = 0.05
+I used 3-fold cross-validation on a training set (60% of input data). 40% of input dat formed test set for final model estimation.
+
+* RMSE: 1.3298
+* Mean absolute error: 1.0313
+* Median absolute error: 0.8036
