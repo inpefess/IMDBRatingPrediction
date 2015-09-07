@@ -19,8 +19,6 @@
 * Mean absolute error: 1.0475
 * Median absolute error: 0.8883
 
-* Baseline (mean rating) MSE: 1.8081
-
 ### ElasticNet
 
 Optimal L1-ratio was found to be equal to 1 so model turn out to be a pure Lasso.
