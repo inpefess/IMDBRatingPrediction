@@ -1,32 +1,34 @@
-import numpy as np
+import numpy
 import apsw
 from sklearn.base import BaseEstimator
 
 class CustomSQLFeatureExtractor(BaseEstimator):
-    def __init__(self, dbfile, queryfile, inmemory, max_depth = 1, n_estimators = 50):
+    def __init__(self, dbfile, queryfile):
         self.dbfile = dbfile
         self.queryfile = queryfile
-        self.inmemory = inmemory
-        self.max_depth = max_depth
-        self.n_estimators = n_estimators
-        diskcon = apsw.Connection(dbfile)
-        if inmemory:
-            self.conn = apsw.Connection(":memory:")
-            self.conn.backup("main", diskcon, "main").step()
-        else:
-            self.conn = diskcon
-    
+        # read text of query from disk into memory
+        self.query = open(self.queryfile, "r").read()
+
+    # dummy method - only for pipeline compatibility
     def fit(self, X, y):
         return self
 
     def transform(self, X):
-        c = self.conn.cursor()
+        # create an inmemory DB - needed for parallel computations
+        conn = apsw.Connection(":memory:")
+        # copy DB from disk into memory
+        conn.backup("main", apsw.Connection(self.dbfile), "main").step()
+        c = conn.cursor()
+        # prepare input
         c.execute("delete from train_ids")
         c.executemany("INSERT INTO train_ids (movie_id) VALUES (?)", [(x,) for x in X.tolist()])
-        c.execute(open(self.queryfile, "r").read())
-        X = np.asarray(c.execute("""
+        # execute main transformation and load the result
+        c.execute(self.query)
+        X = numpy.asarray(c.execute("""
             SELECT actor, producer, writer,
             cinematographer, composer, costume_director,
             director, editor, misc, production_designer FROM train_data ORDER BY movie_id
         """).fetchall())
+        # destroy inmemory snapshot and return the result
+        conn.close()
         return X
