@@ -46,14 +46,14 @@ group by m.movie_id, r.role
 
 delete from train_data;
 insert into train_data (movie_id, rating, actor, producer, writer, cinematographer, composer,
-    costume_director, director, editor, misc, production_designer)
+    costume_designer, director, editor, misc, production_designer)
 select movie_id, rating,
 coalesce(sum(case when role = 1 then rating_part else 0 end), 0) actor,
 coalesce(sum(case when role = 3 then rating_part else 0 end), 0) producer,
 coalesce(sum(case when role = 4 then rating_part else 0 end), 0) writer,
 coalesce(sum(case when role = 5 then rating_part else 0 end), 0) cinematographer,
 coalesce(sum(case when role = 6 then rating_part else 0 end), 0) composer,
-coalesce(sum(case when role = 7 then rating_part else 0 end), 0) costume_director,
+coalesce(sum(case when role = 7 then rating_part else 0 end), 0) costume_designer,
 coalesce(sum(case when role = 8 then rating_part else 0 end), 0) director,
 coalesce(sum(case when role = 9 then rating_part else 0 end), 0) editor,
 coalesce(sum(case when role = 10 then rating_part else 0 end), 0) misc,

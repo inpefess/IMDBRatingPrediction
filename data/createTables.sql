@@ -68,7 +68,7 @@ create table imdb.train_data (
     writer REAL,
     cinematographer REAL,
     composer REAL,
-    costume_director REAL,
+    costume_designer REAL,
     director REAL,
     editor REAL,
     misc REAL,
@@ -76,4 +76,3 @@ create table imdb.train_data (
 );
 
 detach imdb;
-

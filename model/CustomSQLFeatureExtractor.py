@@ -26,7 +26,7 @@ class CustomSQLFeatureExtractor(BaseEstimator):
         c.execute(self.query)
         X = numpy.asarray(c.execute("""
             SELECT actor, producer, writer,
-            cinematographer, composer, costume_director,
+            cinematographer, composer, costume_designer,
             director, editor, misc, production_designer FROM train_data ORDER BY movie_id
         """).fetchall())
         # destroy inmemory snapshot and return the result
