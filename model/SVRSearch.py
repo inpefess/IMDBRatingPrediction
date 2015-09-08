@@ -25,7 +25,7 @@ X_test, y_test = test_data[:, 0], test_data[:, 1]
 featureExtractor = CustomSQLFeatureExtractor(query)
 svRegr = SVR(kernel='rbf')
 clf = GridSearchCV(Pipeline([('FeatureExtractor', featureExtractor), ('SVR', svRegr)]),
-    {'SVR__C': [4], 'SVR__epsilon': [.1, .05, .025, .0125, .005]}, verbose=1, n_jobs = -1,
+    {'SVR__C': [4], 'SVR__epsilon': [.005]}, verbose=1, n_jobs = -1,
     scoring = make_scorer(mean_squared_error, greater_is_better = False), cv = 3)
 
 # fit the model
