@@ -25,7 +25,7 @@ X_test, y_test = test_data[:, 0], test_data[:, 1]
 featureExtractor = CustomSQLFeatureExtractor(query)
 xgbRegr = xgb.XGBRegressor()
 clf = GridSearchCV(Pipeline([('FeatureExtractor', featureExtractor), ('XGBoost', xgbRegr)]),
-    {'XGBoost__max_depth': [1, 2, 3, 4], 'XGBoost__n_estimators': [4000]}, verbose=1, n_jobs = -1,
+    {'XGBoost__max_depth': [8], 'XGBoost__n_estimators': [130]}, verbose=1, n_jobs = -1,
     scoring = make_scorer(mean_squared_error, greater_is_better = False), cv = 3)
 
 # fit the model

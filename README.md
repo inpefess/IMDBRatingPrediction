@@ -31,13 +31,13 @@ I used 10-fold cross-validation on a training set (80% of input data). 20% of in
 
 ### XGBoost
 
-Optimal model had 800 estimators with maximal depth of intercation being equal to 10.
+Optimal model had 130 estimators with maximal depth of intercation being equal to 8.
 
 I used 3-fold cross-validation on a training set (60% of input data). 40% of input dat formed test set for final model estimation.
 
-* RMSE: 0.7232
-* Mean absolute error: 0.4695
-* Median absolute error: 0.2818
+* RMSE: 0.7176
+* Mean absolute error: 0.4665
+* Median absolute error: 0.2811
 
 ### SVR
 
