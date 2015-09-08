@@ -30,3 +30,13 @@ select
 from raw.cast_info
 where movie_id in (select movie_id from imdb.movies)
 ;
+
+create table imdb.movie_data as
+    select
+        group_concat(role||'.'||person_id) features,
+        rating
+    from imdb.roles r
+    inner join imdb.movies m
+    on m.movie_id = r.movie_id
+    group by m.movie_id, rating
+;
